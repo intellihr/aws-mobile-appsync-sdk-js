@@ -199,9 +199,9 @@ class AWSAppSyncClient<TCacheShape> extends ApolloClient<TCacheShape> {
             ...origContext,
             AASContext: {
                 doIt,
+                client: this,
                 ...restAASContext,
                 ...(!doIt ? { refetchQueries, update } : {}),
-                ...(doIt ? { client: this } : {}),
             }
         };
 
@@ -213,7 +213,7 @@ class AWSAppSyncClient<TCacheShape> extends ApolloClient<TCacheShape> {
             ...otherOptions,
             optimisticResponse: doIt ? null : data,
             update,
-            ...(doIt ? { refetchQueries } : {}),
+            refetchQueries,
             context,
         }
 
